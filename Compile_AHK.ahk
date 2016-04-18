@@ -8,13 +8,13 @@ Created_Date=1
 Set_Version_Info=1
 Company_Name=denick, ladiko, flashkid, ruespe and darklight_tr
 File_Description=AHK Compiler Wrapper
-File_Version=0.9.1.0
+File_Version=0.9.1.3
 Inc_File_Version=0
 Internal_Name=Compile_AHK.ahk
-Legal_Copyright=(c) 2006-2011 AutoHotkey
+Legal_Copyright=(c) 2006-2013 AutoHotkey
 Original_Filename=Compile_AHK.ahk
 Product_Name=Compile_AHK
-Product_Version=1.1.3.0
+Product_Version=1.1.13.1
 Set_AHK_Version=1
 [ICONS]
 Icon_1=%In_Dir%\icons\Compile_AHK_160.ico
@@ -28,12 +28,12 @@ Icon_7=0
 * * * Compile_AHK SETTINGS END * * *
 */
 
-CAHK_Version=0.9.2
+CAHK_Version=0.9.1.3
 
 ; --------------------------------------------------------------------------------
 ; Language				: English // German
 ; Platform				: WinNT
-; Author				: <= 0.9.0.5 @ denick // 0.9.0.6-0.9.0.50 @ ladiko // 0.9.0.51-0.9.0.58 @ flashkid and ruespe // 0.9.1 @ darklight_tr // 0.9.2 Dorian Patterson
+; Author				: <= 0.9.0.5 @ denick // 0.9.0.6-0.9.0.50 @ ladiko // 0.9.0.51-0.9.0.58 @ flashkid and ruespe // 0.9.1-0.9.1.3 @ darklight_tr
 ; Script Function		: Alternative Gui for AHK2EXE.EXE
 ; --------------------------------------------------------------------------------
 ; This script analyses a scriptname.ahk.ini , that is present inside of a script's
@@ -321,7 +321,7 @@ GuiShow:
 	Gui , Add , Text , xs y+17 h20 w120 +0x1000 vGui_Text_Other_Options, %Lang_Other_Options%
 	Gui , Add , Checkbox , x+20 yp w220 h20 vGui_Created_Date Checked%Created_Date% , %Lang_Created_Date%
 ;	Gui , Add , Checkbox , x+20 yp w120 h20 vGui_NoDecompile Checked%NoDecompile% , %Lang_NoDecompile%
-	Gui , Add , Checkbox , xs+140 yp w220 h20 vGui_SaveIniInScript Checked%SaveIniInScript% , %Lang_SaveIniInScript%
+	Gui , Add , Checkbox , xs+140 yp+17 w220 h20 vGui_SaveIniInScript Checked%SaveIniInScript% , %Lang_SaveIniInScript%
 
 	Gui , Tab , 2
 	Gui , Add , Checkbox , x+20 y+20 gGui_CB_VI w150 vGui_Set_Version_Info Checked%Set_Version_Info% , %Lang_Set_Version_Info%

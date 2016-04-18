@@ -1,4 +1,4 @@
-/*
+﻿/*
  * * * Compile_AHK SETTINGS BEGIN * * *
 
 [AHK2EXE]
@@ -9,13 +9,13 @@ Execution_Level=4
 Set_Version_Info=1
 Company_Name=ladiko and darklight_tr
 File_Description=Compile_AHK_Setup
-File_Version=0.9.1.0
+File_Version=0.9.1.3
 Inc_File_Version=0
 Internal_Name=Compile_AHK_Setup.ahk
-Legal_Copyright=(c) 2007-2011 AutoHotkey
+Legal_Copyright=(c) 2007-2013 AutoHotkey
 Original_Filename=Compile_AHK_Setup.ahk
 Product_Name=Compile_AHK_Setup
-Product_Version=1.1.3.0
+Product_Version=1.1.13.1
 Set_AHK_Version=1
 [ICONS]
 Icon_1=%In_Dir%\icons\CompileAHK-0_159.ico
@@ -29,12 +29,12 @@ Icon_7=0
 * * * Compile_AHK SETTINGS END * * *
 */
 
-CAHKS_Version=0.9.1
+CAHKS_Version=0.9.1.3
 
 ; ------------------------------------------------------------------------------
 ; Language           : English // German
 ; Platform           : WinNT
-; Author             : <= 0.9.0.5 @ denick // 0.9.0.6-0.9.0.50 @ ladiko // 0.9.1 @ darklight_tr
+; Author             : <= 0.9.0.5 @ denick // 0.9.0.6-0.9.0.50 @ ladiko // 0.9.1-0.9.1.3 @ darklight_tr
 ; Script Function    : Setup file for Compile_AHK
 ; ------------------------------------------------------------------------------
 ; ==============================================================================
@@ -63,7 +63,15 @@ s_CompWithOptionsAuto := "Add ""Compile with Options (Auto)"" to AHK context men
 s_CompWithOptionsNoGUI := "Add ""Compile with Options (NoGUI)"" to AHK context menu"
 s_DeskLnk := "Add Shortcut to the desktop"
 s_MenuLnk := "Add Shortcut to the start menu"
-s_InstallDir := A_ProgramFiles . "\AutoHotkey\Compiler"
+If A_Is64bitOS = 1
+	{
+	SystemDrive = %A_WinDir%
+	StringLeft, SystemDrive, SystemDrive, 2
+	IfExist, %SystemDrive%\Program Files (x86)
+		s_InstallDir = %SystemDrive%\Program Files\AutoHotkey\Compiler
+	}
+else
+	s_InstallDir := A_ProgramFiles . "\AutoHotkey\Compiler"
 s_PathLen := 60
 ; lookup registry for old install path
 RegRead , s_LastInstallPath , HKCR , AutoHotkeyScript\Shell\Compile_AHK\Command
@@ -93,16 +101,16 @@ s_AHK_Error := "Could not find the AutoHotkey installation folder!`n`n"
 				. "Do you want to continue anyway?"
 				
 s_Setup1 := "`nThis setup will install`n`n"
-			. "Compile_AHK.exe v0.9.1 (Required)`n"
-			. "GoRC.exe v0.90.5`n"
+			. "Compile_AHK.exe v0.9.1.3 (Required)`n"
+			. "GoRC.exe v1.0.0.0`n"
 			. "ResHacker.exe v3.6.0`n"
-			. "mpress.exe v2.18`n`n"
+			. "mpress.exe v2.19`n`n"
 			. "into`n`n"
 			. s_InstallDir_View . "`n"
 s_Setup2 := "ResHacker is Copyright (C) 1999-2011 Angus Johnson`n"
 s_ResHacker_URL := "http://www.angusj.com/resourcehacker/"
 
-s_Setup3 := "GoRC is Copyright (C) 1998-2009 Jeremy Gordon`n"
+s_Setup3 := "GoRC is Copyright (C) 1998-2013 Jeremy Gordon`n"
 s_GoRC_URL := "http://www.godevtool.com/"
 
 s_Setup4 := "MPRESS is Copyright (C) 2008 MATCODE Software`n`n`n"
@@ -263,7 +271,7 @@ ExitApp
 ; Gui2 - Reset
 ; ------------------------------------------------------------------------------
 Reset:
-	GuiControl,, GUI2_INSTALL_DIR, %A_ProgramFiles%\AutoHotkey\Compiler
+	GuiControl,, GUI2_INSTALL_DIR, %s_InstallDir%
 Return
 ; ------------------------------------------------------------------------------
 ; Gui2 - INSTALL_DIR
@@ -283,6 +291,7 @@ Return
 ; ------------------------------------------------------------------------------
 GUI2_BT_OK:
 	Gui, +OwnDialogs
+	GuiControl, Disable, Setup
 	Gui, Submit, NoHide
 	s_InstallDir := GUI2_INSTALL_DIR
 	_Install()

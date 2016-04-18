@@ -1,11 +1,10 @@
 Compile AHK
 ===========
 
-v0.9.1 
+v0.9.1.3
 
 Authors: denick, ladiko, flashkid, ruespe, darklight_tr
 
-Built with AutoHotkey_L v1.1.03.00 20110828
 
 Info
 ----
@@ -31,6 +30,44 @@ Originally declared just "open source", any new contributions will be considered
 
 Changelog
 ----------
+
+### v0.9.1.3 (11/18/13)
+
+####  Compile AHK Changes:
+
+- Renew "Created" date and Save settings in script checkboxes no longer overlap.  (Thanks to Drako for the report)
+- Added Windows 8.x support.
+
+#### Setup Changes:
+
+- Added Windows 8.x support.
+
+
+### v0.9.1.2 (10/20/13)
+
+#### Compile AHK Changes:
+
+-Compiled with AutoHotkey_L v1.1.13.01.
+
+#### Setup Changes:
+
+- Compiled with AutoHotkey_L v1.1.13.01.
+- GoRC updated to v1.0.0.0.
+
+
+### v0.9.1.1 (04/23/13) - Internal Release
+
+#### Compile AHK Changes:
+
+- Compiled with AutoHotkey_L v1.1.09.04.
+- Fixed an issue where Compile AHK wouldn't start in newer versions of AutoHotkey_L.
+
+#### Setup Changes:
+
+- Compiled with AutoHotkey_L v1.1.09.04.
+- MPRESS updated to v2.19.
+- Fixed several issues where Setup would pick the incorrect path to the AutoHotkey folder on x64 systems.
+- The Setup button now disables upon activation.
 
 ### v0.9.1 (10/01/11)
 
