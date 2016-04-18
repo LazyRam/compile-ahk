@@ -7,34 +7,36 @@ Created_Date=1
 Execution_Level=4
 [VERSION]
 Set_Version_Info=1
-Company_Name=ladiko and darklight_tr
+Company_Name=denick, ladiko, flashkid, ruespe, darklight_tr and mercury233
 File_Description=Compile_AHK_Setup
-File_Version=0.9.1.3
+File_Version=0.9.2.0
 Inc_File_Version=0
 Internal_Name=Compile_AHK_Setup.ahk
-Legal_Copyright=(c) 2007-2013 AutoHotkey
+Legal_Copyright=(c) 2007-2016 AutoHotkey
 Original_Filename=Compile_AHK_Setup.ahk
 Product_Name=Compile_AHK_Setup
-Product_Version=1.1.13.1
+Product_Version=1.1.23.5
 Set_AHK_Version=1
 [ICONS]
-Icon_1=%In_Dir%\icons\CompileAHK-0_159.ico
+Icon_1=%In_Dir%\icons\Compile_AHK_159.ico
 Icon_2=0
 Icon_3=0
 Icon_4=0
 Icon_5=0
-Icon_6=0
-Icon_7=0
 
 * * * Compile_AHK SETTINGS END * * *
 */
 
-CAHKS_Version=0.9.1.3
+CAHKS_Version=0.9.2.0
 
 ; ------------------------------------------------------------------------------
-; Language           : English // German
-; Platform           : WinNT
-; Author             : <= 0.9.0.5 @ denick // 0.9.0.6-0.9.0.50 @ ladiko // 0.9.1-0.9.1.3 @ darklight_tr
+; Language				: English // German // Simplified Chinese
+; Platform				: WinNT
+; Author				: <= 0.9.0.5 @ denick
+;					// 0.9.0.6 - 0.9.0.50 @ ladiko
+;					// 0.9.0.51 - 0.9.0.58 @ flashkid and ruespe
+;					// 0.9.1 - 0.9.1.3 @ darklight_tr
+;					// 0.9.2 @ mercury233
 ; Script Function    : Setup file for Compile_AHK
 ; ------------------------------------------------------------------------------
 ; ==============================================================================
@@ -56,8 +58,8 @@ s_Welcome := "Welcome to the Compile_AHK_Setup"
 s_SetupOk := "Compile_AHK_Setup was done successfully!"
 s_Compile_AHK := "Compile_AHK.exe"
 s_GoRC := "GoRC.exe"
-s_ResHacker := "ResHacker.exe"
-s_mpress := "mpress.exe"
+s_ResourceHacker := "ResourceHacker.exe"
+s_upx := "upx.exe"
 s_CompWithOptions := "Add ""Compile with Options"" to AHK context menu"
 s_CompWithOptionsAuto := "Add ""Compile with Options (Auto)"" to AHK context menu"
 s_CompWithOptionsNoGUI := "Add ""Compile with Options (NoGUI)"" to AHK context menu"
@@ -101,20 +103,20 @@ s_AHK_Error := "Could not find the AutoHotkey installation folder!`n`n"
 				. "Do you want to continue anyway?"
 				
 s_Setup1 := "`nThis setup will install`n`n"
-			. "Compile_AHK.exe v0.9.1.3 (Required)`n"
-			. "GoRC.exe v1.0.0.0`n"
-			. "ResHacker.exe v3.6.0`n"
-			. "mpress.exe v2.19`n`n"
+			. "Compile_AHK.exe v0.9.2.0 (Required)`n"
+			. "GoRC.exe v1.0.1.0`n"
+			. "ResourceHacker.exe v4.2.5.146`n"
+			. "upx.exe v3.91`n`n"
 			. "into`n`n"
 			. s_InstallDir_View . "`n"
-s_Setup2 := "ResHacker is Copyright (C) 1999-2011 Angus Johnson`n"
-s_ResHacker_URL := "http://www.angusj.com/resourcehacker/"
+s_Setup2 := "ResourceHacker is Copyright (C) 1999-2015 Angus Johnson`n"
+s_ResourceHacker_URL := "http://www.angusj.com/resourcehacker/"
 
 s_Setup3 := "GoRC is Copyright (C) 1998-2013 Jeremy Gordon`n"
 s_GoRC_URL := "http://www.godevtool.com/"
 
-s_Setup4 := "MPRESS is Copyright (C) 2008 MATCODE Software`n`n`n"
-s_mpress_URL := "http://www.matcode.com/mpress.htm"
+s_Setup4 := "UPX is: `nCopyright (C) 1996-2013 Markus Franz Xaver Johannes Oberhumer `nCopyright (C) 1996-2013 László Molnár `nCopyright (C) 2000-2013 John F. Reiser"
+s_upx_URL := "http://upx.sourceforge.net/"
 
 s_Setup5 := "Choose the type of installation and click [ Next > ] to continue:`n"
 
@@ -169,20 +171,20 @@ GUI1_SHOW:
 	Gui, Add, Progress, Disabled x0 y0 w357 h17 cF0F0F0 , 100
 	Gui, Add, Progress, Disabled x0 y277 w357 h33 cF0F0F0 , 100
 	*/
-	Gui, Add, Progress, Disabled x10 y16 w338 h346 cWhite , 100
+	;Gui, Add, Progress, Disabled x10 y16 w410 h386 cWhite , 100
 	
-	Gui, Add, GroupBox, x10 y10 w338 h352 , %s_Welcome%
+	Gui, Add, GroupBox, x10 y10 w410 h392 , %s_Welcome%
 
 	Gui, Add, Text, xp+10 yp+15 BackgroundTrans , %s_Setup1%
 	
 	Gui, Add, Text, yp+159 BackgroundTrans , %s_Setup2%
-	Gui, Add, Text, yp+13 gOpenLink vURL_ResHacker BackgroundTrans , %s_ResHacker_URL%
+	Gui, Add, Text, yp+13 gOpenLink vURL_ResourceHacker BackgroundTrans , %s_ResourceHacker_URL%
 	
 	Gui, Add, Text, yp+26 BackgroundTrans , %s_Setup3%
 	Gui, Add, Text, yp+13 gOpenLink vURL_GoRC BackgroundTrans , %s_GoRC_URL%
 	
 	Gui, Add, Text, yp+26 BackgroundTrans , %s_Setup4%
-	Gui, Add, Text, yp+13 gOpenLink vURL_mpress BackgroundTrans , %s_mpress_URL%
+	Gui, Add, Text, yp+52 gOpenLink vURL_upx BackgroundTrans , %s_upx_URL%
 	
 	Gui, Add, Text, yp+26 BackgroundTrans , %s_Setup5%
 	
@@ -190,7 +192,7 @@ GUI1_SHOW:
 	Gui , Add , Radio , vPortable_Install BackgroundTrans , Portable Installation
 	
 	Gui , Add , Button , Default x10 y+17 w60 gGUI1_BT_NEXT , Next >
-	Gui , Add , Button , x288 yp wp gGUI1Close , Cancel
+	Gui , Add , Button , x360 yp wp gGUI1Close , Cancel
 	Gui , Show , Autosize , %s_GuiTitle%
 	
 	; Retrieve unique ID number (HWND/handle)
@@ -231,16 +233,16 @@ Return
 ; ------------------------------------------------------------------------------
 GUI2_SHOW:
 	
-	Gui, Add, GroupBox, x10 y10 w338 h60, Compiler Directory
+	Gui, Add, GroupBox, x10 y10 w358 h60, Compiler Directory
 	Gui, Add, Edit, xp+10 yp+25 w270 r1 vGUI2_INSTALL_DIR, %s_InstallDir%
 	Gui, Add, Button, x+5 gReset , <<
 	Gui, Add, Button, x+5 gINSTALL_DIR, ...
 
-	Gui, Add, GroupBox, x10 y+20 w338 h116, Install Components
+	Gui, Add, GroupBox, x10 y+20 w358 h116, Install Components
 	Gui, Add, Checkbox, xp+10 yp+25 h20 Checked Disabled vGUI2_CB_1, % s_Compile_AHK . " (Required)"
 	Gui, Add, Checkbox, xp yp+20 h20 Checked vGUI2_CB_2, %s_GoRC%
-	Gui, Add, Checkbox, xp yp+20 h20 Checked vGUI2_CB_3, %s_ResHacker%
-	Gui, Add, Checkbox, xp yp+20 h20 Checked vGUI2_CB_4, %s_mpress%
+	Gui, Add, Checkbox, xp yp+20 h20 Checked vGUI2_CB_3, %s_ResourceHacker%
+	Gui, Add, Checkbox, xp yp+20 h20 Checked vGUI2_CB_4, %s_upx%
 
 	If (Portable_Install)
 	{
@@ -248,7 +250,7 @@ GUI2_SHOW:
 		Loop , 7
 			GUI2_CB_%A_Index% := 0
 	}
-	Gui, Add, GroupBox, %Options_Mode% x10 y+20 w338 h136, Shortcut Settings
+	Gui, Add, GroupBox, %Options_Mode% x10 y+20 w358 h136, Shortcut Settings
 	Gui, Add, Checkbox, %Options_Mode% xp+10 yp+25 h20 Checked%GUI2_CB_5% vGUI2_CB_5, % s_CompWithOptions
 	Gui, Add, Checkbox, %Options_Mode% xp yp+20 h20 Checked%GUI2_CB_6% vGUI2_CB_6, % s_CompWithOptionsAuto
 	Gui, Add, Checkbox, %Options_Mode% xp yp+20 h20 Checked%GUI2_CB_7% vGUI2_CB_7, % s_CompWithOptionsNoGUI
@@ -256,7 +258,7 @@ GUI2_SHOW:
 	Gui, Add, Checkbox, %Options_Mode% xp yp+20 h20 Checked%GUI2_CB_9% vGUI2_CB_9, % s_MenuLnk
 
 	Gui, Add, Button, Default x10 y+20 w60 gGUI2_BT_OK, Setup
-	Gui, Add, Button, gGUI2Close x288 yp w60, Cancel
+	Gui, Add, Button, gGUI2Close x308 yp w60, Cancel
 	Gui, Show, Autosize, %s_GuiTitle%
 	GuiControl, Focus, Setup
 Return
@@ -334,15 +336,15 @@ _Install()
 		}
 	}
 	If (GUI2_CB_3) {
-		FileInstall, ResHacker.exe, %s_InstallDir%\ResHacker.exe,1
+		FileInstall, ResourceHacker.exe, %s_InstallDir%\ResourceHacker.exe,1
 		If (ErrorLevel) {
-			_Install_Error("ResHacker.exe")
+			_Install_Error("ResourceHacker.exe")
 		}
 	}
 	If (GUI2_CB_4) {
-		FileInstall, mpress.exe, %s_InstallDir%\mpress.exe,1
+		FileInstall, upx.exe, %s_InstallDir%\upx.exe,1
 		If (ErrorLevel) {
-			_Install_Error("mpress.exe")
+			_Install_Error("upx.exe")
 		}
 	}
 	If (GUI2_CB_5) {
@@ -479,12 +481,12 @@ _Install_Error(sAPP)
 	ExitApp
 }
 OpenLink:
-	If A_GuiControl = URL_ResHacker
+	If A_GuiControl = URL_ResourceHacker
 		Run, http://www.angusj.com/resourcehacker/
 	Else If A_GuiControl = URL_GoRC
 		Run, http://www.godevtool.com/
-	Else If A_GuiControl = URL_mpress
-		Run, http://www.matcode.com/mpress.htm
+	Else If A_GuiControl = URL_upx
+		Run, http://upx.sourceforge.net/
 Return
 
 SilentInstall:
@@ -502,7 +504,7 @@ SilentInstall:
 			GUI2_CB_2 := 0
 		Else If (param%A_Index% = "/noreshacker")
 			GUI2_CB_3 := 0
-		Else If (param%A_Index% = "/nompress")
+		Else If (param%A_Index% = "/noupx")
 			GUI2_CB_4 := 0
 		Else If (param%A_Index% = "/nocontext")
 			GUI2_CB_5 := 0
@@ -527,7 +529,7 @@ ParamError(param)
 				. "/dir=""C:\Program Files\AutoHotkey\Compiler"" - Installation directory`n"
 				. "/nogorc - Don't install GoRC`n"
 				. "/noreshacker - Don't install Resource Hacker`n"
-				. "/nompress - Don't install MPRESS`n"
+				. "/noupx - Don't install UPX`n"
 				. "/nocontext - Don't create a context menu entry"
 				. "/desktopicon - Create a desktop icon`n"
 				. "/startmenuicon - Create a startmenu icon"

@@ -108,4 +108,7 @@ The following need to be downloaded & installed.
 - [Resource Hacker](http://www.angusj.com/resourcehacker/) - Freeware Resource editor
 - [UPX](http://upx.sourceforge.net/) - Freeware executable packer
 
+
 1. Copy GoRC.exe, ResourceHacker.exe, and upx.exe into the project root directory.
+2. Compile Compile_AHK.ahk with Compile_AHK.ahk.
+3. Compile Compile_AHK_Setup.ahk with Compile_AHK.ahk.

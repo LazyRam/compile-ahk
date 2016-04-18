@@ -34,10 +34,10 @@ CAHK_Version=0.9.2.0
 ; Language				: English // German // Simplified Chinese
 ; Platform				: WinNT
 ; Author				: <= 0.9.0.5 @ denick
-;                         // 0.9.0.6-0.9.0.50 @ ladiko
-;                         // 0.9.0.51-0.9.0.58 @ flashkid and ruespe
-;                         // 0.9.1-0.9.1.3 @ darklight_tr
-;                         // 0.9.2 @ mercury233
+;					// 0.9.0.6 - 0.9.0.50 @ ladiko
+;					// 0.9.0.51 - 0.9.0.58 @ flashkid and ruespe
+;					// 0.9.1 - 0.9.1.3 @ darklight_tr
+;					// 0.9.2 @ mercury233
 ; Script Function		: Alternative Gui for AHK2EXE.EXE
 ; --------------------------------------------------------------------------------
 ; This script analyses a scriptname.ahk.ini , that is present inside of a script's
@@ -262,6 +262,7 @@ User_Defaults_Ini = %User_Defaults_Ini%
 	; --------------------------------------------------------------------------------
 	; Bye
 	; --------------------------------------------------------------------------------
+	Msgbox , 262208 , %MSG_TITLE% , Everything done`, bye! , 1
 	_EXIT(0)
 Return
 ; ================================================================================
@@ -2326,7 +2327,9 @@ UPX_Compression()
 		. " -" . UPX_Compression . " "
 		. """" . Exe_File . """"
 	
+	ToolTip, UPX Compressing...
 	RunWait , %s_CMD% , , UseErrorLevel Hide
+	ToolTip
 	If (Errorlevel)
 	{
 		s_ERR := "Couldn't do UPX Compression , " . UPX_Exe . " failed!"
@@ -2396,7 +2399,7 @@ _Compile_AHK()
 			LastLine := A_Index
 		LastLine -= 2
 		FileReadLine , s_Log , %A_WorkingDir%\%Log_File% , %LastLine%
-		Msgbox , 262208 , %MSG_TITLE% , %s_Log% , 2
+		Msgbox , 262208 , %MSG_TITLE% , %s_Log% , 1
 	}
 	Return True
 }
@@ -2419,7 +2422,9 @@ _Run_After()
 	StringReplace , s_CMD , s_CMD , % "%ON%" , %Out_Name% , All
 	
 	FileAppend , `n* Execute Run After Command:`n%s_CMD%`n, %A_WorkingDir%\%Log_File%
+	ToolTip, Executing Run After Command:`n%s_CMD%
 	RunWait , %ComSpec% /c "%s_CMD%" , %In_Dir% , UseErrorLevel Hide
+	ToolTip
 	If Errorlevel
 	{
 		FileRead , s_Log , %Log_File%
@@ -2475,8 +2480,8 @@ Clean_Directory() {
 	FileDelete, ChangeIcon.script
 	FileDelete, ResourceHacker.ini
 	FileDelete, Compile_AHK.log
-	FileDelete, AutoHotkeySC.bin
-	FileDelete, Ahk2Exe.exe
+	;FileDelete, AutoHotkeySC.bin
+	;FileDelete, Ahk2Exe.exe
 	Restore_File(A_WorkingDir . "\" . BIN_FILE)
 	If SaveIniInScript
 		FileDelete , %Ini_File%
