@@ -47,7 +47,7 @@ Changelog
 
 #### Compile AHK Changes:
 
--Compiled with AutoHotkey_L v1.1.13.01.
+- Compiled with AutoHotkey_L v1.1.13.01.
 
 #### Setup Changes:
 
@@ -103,9 +103,9 @@ How to build
 
 The following need to be downloaded & installed.
 
-- [AutoHotkey_L](http://l.autohotkey.net/AutoHotkey_L_Install.exe)
+- [AutoHotkey](https://autohotkey.com/download/)
 - [GoRC](http://www.godevtool.com/) - Freeware Resouce compiler
-- [ResHacker](http://www.angusj.com/resourcehacker/) - Freeware Resource editor
-- [MPRESS](http://www.matcode.com/mpress.htm) - Freeware executable packer
+- [Resource Hacker](http://www.angusj.com/resourcehacker/) - Freeware Resource editor
+- [UPX](http://upx.sourceforge.net/) - Freeware executable packer
 
-1. Copy GoRC.exe, ResHacker.exe, and mpress.exe into the project root directory.
+1. Copy GoRC.exe, ResourceHacker.exe, and upx.exe into the project root directory.

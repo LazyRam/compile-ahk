@@ -3,18 +3,20 @@
 
 [AHK2EXE]
 Exe_File=%In_Dir%\Compile_AHK.exe
+Compression=2
+No_UPX=1
 Created_Date=1
 [VERSION]
 Set_Version_Info=1
-Company_Name=denick, ladiko, flashkid, ruespe and darklight_tr
+Company_Name=denick, ladiko, flashkid, ruespe, darklight_tr and mercury233
 File_Description=AHK Compiler Wrapper
-File_Version=0.9.1.3
+File_Version=0.9.2.0
 Inc_File_Version=0
 Internal_Name=Compile_AHK.ahk
-Legal_Copyright=(c) 2006-2013 AutoHotkey
+Legal_Copyright=(c) 2006-2016 AutoHotkey
 Original_Filename=Compile_AHK.ahk
 Product_Name=Compile_AHK
-Product_Version=1.1.13.1
+Product_Version=1.1.23.5
 Set_AHK_Version=1
 [ICONS]
 Icon_1=%In_Dir%\icons\Compile_AHK_160.ico
@@ -22,18 +24,20 @@ Icon_2=%In_Dir%\icons\Compile_AHK_160.ico
 Icon_3=%In_Dir%\icons\Compile_AHK_206.ico
 Icon_4=0
 Icon_5=0
-Icon_6=0
-Icon_7=0
 
 * * * Compile_AHK SETTINGS END * * *
 */
 
-CAHK_Version=0.9.1.3
+CAHK_Version=0.9.2.0
 
 ; --------------------------------------------------------------------------------
-; Language				: English // German
+; Language				: English // German // Simplified Chinese
 ; Platform				: WinNT
-; Author				: <= 0.9.0.5 @ denick // 0.9.0.6-0.9.0.50 @ ladiko // 0.9.0.51-0.9.0.58 @ flashkid and ruespe // 0.9.1-0.9.1.3 @ darklight_tr
+; Author				: <= 0.9.0.5 @ denick
+;                         // 0.9.0.6-0.9.0.50 @ ladiko
+;                         // 0.9.0.51-0.9.0.58 @ flashkid and ruespe
+;                         // 0.9.1-0.9.1.3 @ darklight_tr
+;                         // 0.9.2 @ mercury233
 ; Script Function		: Alternative Gui for AHK2EXE.EXE
 ; --------------------------------------------------------------------------------
 ; This script analyses a scriptname.ahk.ini , that is present inside of a script's
@@ -219,6 +223,12 @@ User_Defaults_Ini = %User_Defaults_Ini%
 	; --------------------------------------------------------------------------------
 	If (Created_Date && FileExist(Exe_File))
 		Renew_Created_Date()
+	
+	; --------------------------------------------------------------------------------
+	; UPX Compression
+	; --------------------------------------------------------------------------------
+	If (!No_UPX && FileExist(Exe_File))
+		UPX_Compression()
 	
 ; --------------------------------------------------------------------------------
 	; Run After
@@ -439,6 +449,7 @@ GuiShow:
 	Gui , Add , Picture , x+20 yp-5 w32 h32 vGui_Icon_5_Pic , %Icon_5%
 	Gui , Add , Checkbox , xs w100 yp+28 vGui_Icon_5_Delete gGuiActivateIcon Checked%Icon_5_Delete% , %Lang_Delete%
 
+	/*
 	Gui , Font , cNavy
 	Gui , Add , Text , Section xs y+8 h20 w130 +0x1000 vGui_Text_Icon_6 , %Lang_Main_Icon_9x%
 	Gui , Font , cBlack
@@ -456,6 +467,7 @@ GuiShow:
 	Gui , Add , Button , x+20 yp h20 w70 vGui_Icon_7_BT gGuiBTSelIcon , %Lang_Select%
 	Gui , Add , Picture , x+20 yp-5 w32 h32 vGui_Icon_7_Pic , %Icon_7%
 	Gui , Add , Checkbox , xs w100 yp+28 vGui_Icon_7_Delete gGuiActivateIcon Checked%Icon_7_Delete% , %Lang_Delete%
+	*/
 	
 	Gui , Tab , 4
 	Gui , Add , ListView , x+20 y+20 w500 h286 Grid vGui_Resource_ListView , %Lang_Resource_ListView%
@@ -1622,13 +1634,19 @@ _SaveIniInScript()
 {
 	Global
 	Local s_Creation , s_Modification , s_Access, Ini_File_Content ;, In_File_Content 
+
+	IfInString , In_File_Content , `r`n
+		new_line := "`r`n"
+	Else
+		new_line := "`n"
 	
 	FileGetTime , s_Creation , %In_File% , C
 	FileGetTime , s_Modification , %In_File%, M
 	FileGetTime , s_Access , %In_File% , A
 	
 	FileRead , Ini_File_Content , %Ini_File%
-	StringReplace , Ini_File_Content , Ini_File_Content , `r
+	StringReplace , Ini_File_Content , Ini_File_Content , `r, , A
+	StringReplace , Ini_File_Content , Ini_File_Content , `n, %new_line%, A  ; make sure all line feedings are changed
 	FileDelete , %Ini_File%
 	
 	If (In_File_Settings1 = Ini_File_Content)	; settings match old settings
@@ -1641,11 +1659,6 @@ _SaveIniInScript()
 		; In_File_Content := Script.Read
 	; }
 	Script.Close
-
-	IfInString , In_File_Content , `r`n
-		new_line := "`r`n"
-	Else
-		new_line := "`n"
 	
 	In_File_Content := "/*" . new_line . " * * * Compile_AHK SETTINGS BEGIN * * *" . new_line . new_line
 		. Ini_File_Content
@@ -2113,7 +2126,7 @@ BLOCK "VarFileInfo"
 			. "[COMMANDS]`n"
 ; --------------------------------------------------------------------------------
 ; ResHacker-fix: cause the following command doesn't work:
-; ResHacker.exe -addoverwrite , in.exe , out.exe , version.res , versioninfo , 1 , 1033
+; ResourceHacker.exe -addoverwrite , in.exe , out.exe , version.res , versioninfo , 1 , 1033
 ; the versioninfo with language ID 1033 has to be deleted to prevent double versioninfo
 ; --------------------------------------------------------------------------------
 	s_Script := s_Script . "-delete Versioninfo , 1 , 1033`n"
@@ -2297,6 +2310,32 @@ Renew_Created_Date()
 	Return
 }
 ; --------------------------------------------------------------------------------
+; Do UPX Compression
+; --------------------------------------------------------------------------------
+UPX_Compression()
+{
+	Global
+	
+	Error_Message := "UPX Compress Error.`n"
+	
+	FileAppend , `n* UPX Compressing %Exe_File% , %A_WorkingDir%\%Log_File%
+	
+	UPX_Compression := (Compression+1)*2-1
+	
+	s_CMD := """" . A_ScriptDir . "\" UPX_Exe . """"
+		. " -" . UPX_Compression . " "
+		. """" . Exe_File . """"
+	
+	RunWait , %s_CMD% , , UseErrorLevel Hide
+	If (Errorlevel)
+	{
+		s_ERR := "Couldn't do UPX Compression , " . UPX_Exe . " failed!"
+		_Error_Exit(Error_Message . s_ERR)
+	}
+	
+	Return
+}
+; --------------------------------------------------------------------------------
 ; Compile_AHK
 ; --------------------------------------------------------------------------------
 _Compile_AHK()
@@ -2315,9 +2354,6 @@ _Compile_AHK()
 		If ErrorLevel
 			MsgBox,,Compile_AHK,%Out_Name% already running. Please close it before continuing.
 	}
-
-	
-	
 	
 	If (Password != "") {
 		; escape double quotation marks
@@ -2437,12 +2473,13 @@ Clean_Directory() {
 	FileDelete, VersionInfo.res
 	FileDelete, ChangeVersionInfo.script
 	FileDelete, ChangeIcon.script
-	FileDelete, ResHacker.ini
+	FileDelete, ResourceHacker.ini
 	FileDelete, Compile_AHK.log
+	FileDelete, AutoHotkeySC.bin
+	FileDelete, Ahk2Exe.exe
 	Restore_File(A_WorkingDir . "\" . BIN_FILE)
 	If SaveIniInScript
 		FileDelete , %Ini_File%
-		
 }
 ; --------------------------------------------------------------------------------
 ; Set Registry Entries
@@ -2678,7 +2715,7 @@ WM_MOUSEMOVE()
 	If (%Lang_CurrControl%_TT = "")
 		ToolTip , %CurrControl%
 	Else
-		ToolTip % %Lang_CurrControl%_TT . " :D" ; %The leading percent sign tell it to use an expression.
+		ToolTip % %Lang_CurrControl%_TT . "" ; %The leading percent sign tell it to use an expression.
 	SetTimer, RemoveToolTip2, -5000
 	Return
 
@@ -2700,8 +2737,8 @@ DefineConstants:
 	UPX_Exe := "Upx.exe"
 	RC_EXE := "GoRC.exe"
 	RC_Log := "GoRC.log"
-	Res_Exe := "ResHacker.exe"
-	RES_Ini := "ResHacker.ini"
+	Res_Exe := "ResourceHacker.exe"
+	RES_Ini := "ResourceHacker.ini"
 	Res_Log := "ResHacker.log"
 	Log_File := "Compile_AHK.log"
 	Manifest_File := "AutoHotkeySC.manifest"
@@ -2714,7 +2751,7 @@ DefineConstants:
 	AHK_Section := "AHK2EXE"
 	RES_Section := "VERSION"
 	ICO_Section := "ICONS"
-	Icon_Count := 7
+	Icon_Count := 5
 	MSG_TITLE := "Compile_AHK"
 	Language_IDS := Create_Lang_List()
 	Charsets := Create_Charset_List()
@@ -2888,7 +2925,7 @@ ReadLanguage:
 				_Error(Error_Message . "`nCould not copy """ . Global_Language_Ini . """ to """ . Language_Dir . """.")
 		}
 	}
-	FileRead, lang_file, %Language_Ini%
+	FileRead, lang_file, *P65001 %Language_Ini%
 	LangHelp_LoadLanguageVars(lang_file,"updateLang")
 
 Return
