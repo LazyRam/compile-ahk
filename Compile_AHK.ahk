@@ -1154,7 +1154,7 @@ ShowCredits:
 	Gui 2:Add, Text, vURL_2 gOpenLink x48, Developed by denick
 	
 	Gui 2:Add, Picture, vIcon3 x12 y%YPos3% h32 w32 Icon1, %A_ScriptFullPath%
-	Gui 2:Add, Text, vURL_3 gOpenLink x48, Enhanced by ladiko, flashkid, ruespe and darklight_tr
+	Gui 2:Add, Text, vURL_3 gOpenLink x48, Enhanced by ladiko, flashkid,`nruespe, darklight_tr and mercury233
 	
 	Gui 2:Add, Picture, vIcon4 x12 y%YPos4% h32 w32 Icon172, shell32.dll
 	Gui 2:Add, Text, vURL_4 gOpenLink x48, Debugged by jfk001 + flashkid
@@ -1176,7 +1176,7 @@ ShowCredits:
 	
 	Gui 2:Add, Text, vText_2 x12 y%YPos10%, %MoreText%
 	
-	Gui 2:Show, w315 h%WinH%, %Lang_Credits%:
+	Gui 2:Show, w360 h%WinH%, %Lang_Credits%:
 	
 	; Retrieve scripts PID
 	Process, Exist
@@ -1244,23 +1244,23 @@ Return
 ; --------------------------------------------------------------------------------
 OpenLink:
 	If A_GuiControl = URL_1
-		Run, http://www.autohotkey.com
+		Run, https://autohotkey.com/
 	Else If A_GuiControl = URL_2
-		Run, http://www.autohotkey.com/forum/topic14379.html
+		Run, https://autohotkey.com/board/topic/13154-compile-ahk-for-those-who-compile/
 	Else If A_GuiControl = URL_3
-		Run, http://www.autohotkey.com/forum/topic22975.html
+		Run, https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/
 	Else If A_GuiControl = URL_4
-		Run, jfk001
+		Run, https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/
 	Else If A_GuiControl = URL_5
-		Run, http://www.autohotkey.net
+		Run, https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/
 	Else If A_GuiControl = URL_6
-		Run, http://www.autohotkey.com/forum/topic6752.html
+		Run, https://autohotkey.com/board/topic/6273-credits-gui/
 	Else If A_GuiControl = URL_7
-		Run, http://www.autohotkey.com/forum/topic29003.html
+		Run, https://autohotkey.com/board/topic/26510-include-langhelpahk-to-make-multilanguage-scripts/
 	Else If A_GuiControl = URL_8
-		Run, http://www.autohotkey.com/forum/topic37624.html
+		Run, https://autohotkey.com/board/topic/34467-res-includer-v22-beta/
 	Else If A_GuiControl = URL_9
-		Run, http://www.autohotkey.com/forum/
+		Run, https://autohotkey.com/boards/
 	
 Return
 ; --------------------------------------------------------------------------------
@@ -1667,7 +1667,7 @@ _SaveIniInScript()
 		. In_File_Content
 
 	FileDelete , %In_File%
-	FileAppend , %In_File_Content% , %In_File%,%Encoding%
+	FileAppend , %In_File_Content% , *%In_File% , %Encoding%
 	
 	; to notify editors about changed file content
 	EnvAdd , s_Modification , 1 , Seconds

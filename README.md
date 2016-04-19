@@ -1,9 +1,9 @@
 Compile AHK
 ===========
 
-v0.9.1.3
+v0.9.2
 
-Authors: denick, ladiko, flashkid, ruespe, darklight_tr
+Authors: denick, ladiko, flashkid, ruespe, darklight_tr, mercury233
 
 
 Info
@@ -30,6 +30,26 @@ Originally declared just "open source", any new contributions will be considered
 
 Changelog
 ----------
+
+### v0.9.2 (04/19/16)
+
+####  Compile AHK Changes:
+
+- Compiled with AutoHotkey_L v1.1.23.5.
+- Added zh-cn translation.
+- Added back UPX support, remove mpress.
+- Updated ResHacker to 4.x.
+- Changed language.ini to UTF-8.
+- Removed icon 6 and 7 since they don't exist in AutoHotkeySC.bin any more.
+- Fixed line feeding when saving ini in script.
+- Fixed tooltip.
+
+#### Setup Changes:
+
+- Added back UPX, remove mpress.
+- GoRC updated to v1.0.1.0.
+- ResourceHacker updated to v4.2.5.146.
+
 
 ### v0.9.1.3 (11/18/13)
 
@@ -68,6 +88,7 @@ Changelog
 - MPRESS updated to v2.19.
 - Fixed several issues where Setup would pick the incorrect path to the AutoHotkey folder on x64 systems.
 - The Setup button now disables upon activation.
+
 
 ### v0.9.1 (10/01/11)
 
