@@ -3,6 +3,7 @@
 
 [AHK2EXE]
 Exe_File=%In_Dir%\Compile_AHK_Setup.exe
+No_UPX=1
 Created_Date=1
 Execution_Level=4
 [VERSION]
