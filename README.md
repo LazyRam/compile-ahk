@@ -3,7 +3,7 @@ Compile AHK
 
 v0.9.2
 
-Authors: [denick, ladiko, flashkid, ruespe, darklight_tr](https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/), [mercury233](https://github.com/mercury233), [LazyRam](https://github.com/LazyRam)
+Authors: [denick](https://autohotkey.com/board/topic/13154-compile-ahk-for-those-who-compile/), [ladiko](https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/), [flashkid, ruespe, darklight_tr, mercury233](https://github.com/mercury233), [LazyRam](https://github.com/LazyRam)
 
 
 Info
