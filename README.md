@@ -3,7 +3,7 @@ Compile AHK
 
 v0.9.2
 
-Authors: denick, ladiko, flashkid, ruespe, darklight_tr, mercury233
+Authors: denick, ladiko, flashkid, ruespe, darklight_tr, mercury233, LazyRam
 
 
 Info
@@ -11,17 +11,24 @@ Info
 
 Compile AHK is a GUI based script that assists with compiling AutoHotkey scripts.
 
-OS Support: Windows XP, Windows Vista, Windows 7
+OS Support: Windows XP, Windows Vista, Windows 7,  Windows 10
 
-Tested On: Windows XP, Windows 7
+Tested On: Windows XP, Windows 7, Windows 10
+
+Extra
+-----
+I Updated Compile-ahk.exe to automate ketain File Updates for Enabling the cmd command Compile_AHK.exe /auto "file path" to use the updated file version.
+
+I have very little AHK experience so my code was mostly brute force trial and error for 3 days. I tried staying as true to the code as possible. In the end Code is NOT Optimal
 
 Known Issues
 ------------
 
+
 - This version of Compile AHK is intended for use with AutoHotkey_L v1.1.01.00 and higher.  For AutoHotkey Basic or AutoHotkey_L v1.1.00.01 and lower use Compile AHK v0.9.0.50/58.
 - Icon files contained in very long directory paths will generate errors when they are selected.  This issue is under investigation.
-
-Please report any issues you encounter here: https://github.com/imaginationac/compile-ahk/issues
+- Version in ListView wont show up in Resources Tab after first Compile. -Set Resource Version Checkbox Still Works
+- Setting File Icon Does not work. sorry
 
 License
 -------
@@ -30,6 +37,14 @@ Originally declared just "open source", any new contributions will be considered
 
 Changelog
 ----------
+
+### v0.9.4 (09/24/20)
+
+####  Compile AHK Changes:
+
+- adds "Set Resource Version" Checkbox to File Version, File Version Will automatically be set to The added Resource's file Version
+- Now also shows "Version" in the Resources Tab ListView
+
 
 ### v0.9.2 (04/19/16)
 
