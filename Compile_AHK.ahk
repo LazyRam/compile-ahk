@@ -358,7 +358,8 @@ GuiShow:
 	Gui , Add , Updown , vGui_FV3 Range0-9999 , %Gui_FV3%
 	Gui , Add , Edit , Center x+0 yp h20 w50 vGui_TFV4 , 
 	Gui , Add , Updown , vGui_FV4 Range0-9999 , %Gui_FV4%
-	Gui , Add , Checkbox , x+20 gGui_CB_INC vGui_Inc_File_Version Checked%Inc_File_Version% , %Lang_Autoincrement%
+	Gui , Add , Checkbox , yp-3 x+20 gGui_CB_SAV vGui_Set_Resource_Version Checked%Set_Resource_Version% , %Lang_Set_Resource_Version%
+	Gui , Add , Checkbox , xp yp+16 gGui_CB_INC vGui_Inc_File_Version Checked%Inc_File_Version% , %Lang_Autoincrement%
 
 	Gui , Font , cNavy
 	Gui , Add , Text , xs y+10 h20 w120 +0x1000 vGui_Text_Internal_Name , %Lang_Internal_Name%
@@ -474,6 +475,8 @@ GuiShow:
 	Gui , Add , ListView , x+20 y+20 w500 h286 Grid vGui_Resource_ListView , %Lang_Resource_ListView%
 	Gui , Add , Button , xp+145 y+10 w100 h23 vGui_Add_Resource gSelect_Resource , %Lang_Add_Resource%
 	Gui , Add , Button , x+10 yp w100 h23 vGui_Remove_Resource gRemove_Resource , %Lang_Remove_Resource%
+
+	
 
 	Gui , Tab
 	Gui , Add , Button , Default xs y370 h25 w70 vGui_Compile gGuiBTCompile , %Lang_Compile%
@@ -914,7 +917,7 @@ Gui_CB_VI:
 	}
 Return
 ; --------------------------------------------------------------------------------
-; Gui Checkbox Set AHK Version
+; Gui Checkbox Set AHK Version / Resource Version
 ; --------------------------------------------------------------------------------
 Gui_CB_SAV:
 	Gui , Submit , NoHide
@@ -942,6 +945,46 @@ Gui_CB_SAV:
 			Loop , %a_V0%
 				GuiControl , Enable , Gui_TPV%A_Index%
 	}
+	If (Gui_Set_Resource_Version) 
+	{
+	GuiControl , Disable , Gui_Inc_File_Version
+	GuiControl , Disable , Gui_TFV1
+	GuiControl , Disable , Gui_TFV2
+	GuiControl , Disable , Gui_TFV3
+	GuiControl , Disable , Gui_TFV4
+	GuiControl , Disable , Gui_FV1
+	GuiControl , Disable , Gui_FV2
+	GuiControl , Disable , Gui_FV3
+	GuiControl , Disable , Gui_FV4
+	GuiControl , , Gui_Inc_File_Version , 0
+	;split BIN_Version to four values
+	If (Alt_Bin_Set = 1 and Alt_Bin != "")
+			FileGetVersion,s_OrgBin,%Alt_Bin%
+	Else
+			FileGetVersion,s_OrgBin,%Selected_Resources%
+		StringSplit , a_V , s_OrgBin , .
+		Loop , %a_V0%
+		{
+			GuiControl , Disable , Gui_TFV%A_Index%
+			Value := a_V%A_Index%
+			GuiControl , , Gui_TFV%A_Index% , %Value%
+		}
+	}
+	Else 
+	{
+		GuiControl , Enable , Gui_Inc_File_Version
+		If (!Gui_Inc_File_Version)
+			Loop , %a_V0%
+				GuiControl , Enable , Gui_TFV%A_Index%
+				GuiControl , Enable , Gui_TFV1
+				GuiControl , Enable , Gui_TFV2
+				GuiControl , Enable , Gui_TFV3
+				GuiControl , Enable , Gui_TFV4
+				GuiControl , Enable , Gui_FV1
+				GuiControl , Enable , Gui_FV2
+				GuiControl , Enable , Gui_FV3
+				GuiControl , Enable , Gui_FV4
+	}
 Return
 ; --------------------------------------------------------------------------------
 ; Gui Autoincrement Version
@@ -957,7 +1000,6 @@ Gui_CB_INC:
 	{
 		If (Gui_Inc_Product_Version)
 		{
-			
 			GuiControl , Disable , Gui_Set_AHK_Version
 			GuiControl , , Gui_Set_AHK_Version , 0
 			Inc_Version_Helper("PV")
@@ -973,15 +1015,18 @@ Gui_CB_INC:
 	{
 		If (Gui_Inc_File_Version)
 		{
+			GuiControl , Disable , Gui_Set_Resource_Version
+			GuiControl , , Gui_Set_Resource_Version , 0
 			Inc_Version_Helper("FV")
 		}
 		Else {
+			GuiControl , Enable , Gui_Set_Resource_Version
 			Loop , %a_FV0%
 				GuiControl , Enable , Gui_TFV%A_Index%
+				GuiControl , Enable , Gui_FV%A_Index%
 		}
 	}
 Return
-
 ; --------------------------------------------------------------------------------
 ; Increments version - type: FV or PV
 ; --------------------------------------------------------------------------------
@@ -1458,6 +1503,11 @@ _READ_INI(s_Ini_File)
 		File_Version := s_INI
 	}
 	
+	IniRead , s_INI , %s_Ini_File% , %RES_Section% , Set_Resource_Version , ERROR
+	If (s_INI != "ERROR") {
+		Set_Resource_Version := s_INI
+	}
+	
 	IniRead , s_INI , %s_Ini_File% , %RES_Section% , Inc_File_Version , ERROR
 	If (s_INI = "ERROR")
 		IniRead , s_INI , %s_Ini_File% , %RES_Section% , INC_FILE_VER , ERROR
@@ -1589,6 +1639,9 @@ _WRITE_INI(s_Ini_File)
 			IniWrite , %File_Description% , %s_Ini_File% , %RES_Section% , File_Description
 		If (File_Version <> "0.0.0.0")
 			IniWrite , %File_Version% , %s_Ini_File% , %RES_Section% , File_Version
+			
+		If (Set_Resource_Version <> 0)
+			IniWrite , %Set_Resource_Version% , %s_Ini_File% , %RES_Section% , Set_Resource_Version	
 		If (Inc_File_Version <> "")
 			IniWrite , %Inc_File_Version% , %s_Ini_File% , %RES_Section% , Inc_File_Version
 		If (Internal_Name <> "")
@@ -1703,6 +1756,7 @@ _Gui_DeActivate_Version_Info(s_CMD)
 	GuiControl , %s_CMD% , Gui_Product_Name
 	GuiControl , %s_CMD% , Gui_Language_ID
 	GuiControl , %s_CMD% , Gui_Charset
+	GuiControl , %s_CMD% , Gui_Set_Resource_Version
 	
 	If !Gui_Set_AHK_Version {
 		GuiControl , %s_CMD% , Gui_TPV1
@@ -1839,6 +1893,8 @@ _Get_Gui_Values()
 		Company_Name := Gui_Company_Name
 		File_Description := Gui_File_Description
 		File_Version := Gui_FV1 . "." . Gui_FV2 . "." . Gui_FV3 . "." . Gui_FV4
+		
+		Set_Resource_Version := GUI_Set_Resource_Version
 		Inc_File_Version := Gui_Inc_File_Version
 		Internal_Name := Gui_Internal_Name
 		Legal_Copyright := Gui_Legal_Copyright
@@ -2566,7 +2622,7 @@ Return
 Add_Resource(s_Resources)
 {
 	Global
-	Local s_Resource_File , s_Target , s_Resource_Dir
+	Local s_Resource_File , s_Target , s_Resource_Dir , s_Resource_Version
 	
 	SetFormat, Float, 02.0
 
@@ -2578,7 +2634,10 @@ Add_Resource(s_Resources)
 			Msgbox , 262192 , %MSG_TITLE% , Resource file %A_LoopField% doesn't exist!
 			Continue
 		}
-		SplitPath, A_LoopField , s_Resource_File , s_Resource_Dir , s_Resources_Ext
+		SplitPath, A_LoopField , s_Resource_File , s_Resource_Dir , s_Resources_Ext , s_Resource_Version
+		
+		FileGetVersion,Resource_Version,%Selected_Resources%
+		s_Resource_Version = %Resource_Version%
 		
 		If s_Resources_Ext = BMP
 		{
@@ -2599,7 +2658,7 @@ Add_Resource(s_Resources)
 			
 			s_Target := "RCDATA," . RCDATA_I . ","
 		}
-		LV_Add("" , s_Resource_File , s_Target , s_Resource_Dir )
+		LV_Add("" , s_Resource_File , s_Target , s_Resource_Dir , s_Resource_Version)
 	}
 	LV_ModifyCol()
 	LV_ModifyCol(2,"Sort")
@@ -2789,6 +2848,7 @@ DefineConstants:
 	Company_Name := ""
 	File_Description := ""
 	File_Version := ""
+	Set_Resource_Version := 0
 	Inc_File_Version := 0
 	Internal_Name := ""
 	Legal_Copyright := ""
@@ -2835,6 +2895,7 @@ DefineConstants:
 	Gui_FV2 := 0
 	Gui_FV3 := 0
 	Gui_FV4 := 0
+	Gui_Set_Resource_Version := 0
 	Gui_Inc_File_Version := 0
 	Gui_Internal_Name := ""
 	Gui_Product_Name := ""
@@ -2972,6 +3033,7 @@ updateLang:
 	GuiControl , , Gui_Select_Run_After , %Lang_Select%
 	GuiControl , , Gui_Select_Run_Before , %Lang_Select%
 
+	GuiControl , , Gui_Set_Resource_Version , %Lang_Set_Resource_Version%
 	GuiControl , , Gui_Set_AHK_Version , %Lang_Set_AHK_Version%
 ;	GuiControl , , Gui_Show_Pwd , %Lang_Show_Pwd%
 	GuiControl , , Gui_Tabs , |%Lang_Tabs%
