@@ -15,6 +15,8 @@ OS Support: Windows XP, Windows Vista, Windows 7,  Windows 10
 
 Tested On: Windows XP, Windows 7, Windows 10
 
+Tested On: ResourceHacker.exe V4.2.5.146 | upx.exe V3.96.0.0 | GoRC.exe V1.0.2.1
+
 Extra
 -----
 I Updated Compile-ahk.exe to automate ketain File Updates for Enabling the cmd command Compile_AHK.exe /auto "file path" to use the updated file version.
@@ -24,11 +26,10 @@ I have very little AHK experience so my code was mostly brute force trial and er
 Known Issues
 ------------
 
-
-- This version of Compile AHK is intended for use with AutoHotkey_L v1.1.01.00 and higher.  For AutoHotkey Basic or AutoHotkey_L v1.1.00.01 and lower use Compile AHK v0.9.0.50/58.
-- Icon files contained in very long directory paths will generate errors when they are selected.  This issue is under investigation.
-- Version in ListView wont show up in Resources Tab after first Compile. -Set Resource Version Checkbox Still Works
 - Setting File Icon Does not work. sorry
+- Version in ListView wont show up in Resources Tab after first Compile. -Set Resource Version Checkbox Still Works
+- Icon files contained in very long directory paths will generate errors when they are selected.  This issue is under investigation.
+- This version of Compile AHK is intended for use with AutoHotkey_L v1.1.01.00 and higher.  For AutoHotkey Basic or AutoHotkey_L v1.1.00.01 and lower use Compile AHK v0.9.0.50/58.
 
 License
 -------
@@ -41,7 +42,6 @@ Changelog
 ### v0.9.4 (09/24/20)
 
 ####  Compile AHK Changes:
-
 - Updated addon In English Only - its Set up to easily add languages but i dont know if google translate is proper. -Language File-
 - adds "Set Resource Version" Checkbox to File Version, File Version Will automatically be set to The added Resource's file Version
 - Now also shows "Version" in the Resources Tab ListView
