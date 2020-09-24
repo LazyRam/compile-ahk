@@ -42,6 +42,7 @@ Changelog
 
 ####  Compile AHK Changes:
 
+- Updated addon In English Only - its Set up to easily add languages but i dont know if google translate is proper. -Language File-
 - adds "Set Resource Version" Checkbox to File Version, File Version Will automatically be set to The added Resource's file Version
 - Now also shows "Version" in the Resources Tab ListView
 
