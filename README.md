@@ -45,7 +45,12 @@ Changelog
 - Updated addon In English Only - its Set up to easily add languages but i dont know if google translate is proper
 - adds "Set Resource Version" Checkbox to File Version, File Version Will automatically be set to The added Resource's file Version
 - Now also shows "Version" in the Resources Tab ListView
+- Compiled with AhtoHotKey v1.1.33.02
 
+#### Setup Changes:
+
+- GoRC updated to v1.0.2.1
+- UPX updated to v3.96.0.0
 
 ### v0.9.2 (04/19/16)
 
