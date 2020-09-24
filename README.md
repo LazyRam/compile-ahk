@@ -15,7 +15,7 @@ OS Support: Windows XP, Windows Vista, Windows 7,  Windows 10
 
 Tested On: Windows XP, Windows 7, Windows 10
 
-Tested On: ResourceHacker.exe V4.2.5.146 | upx.exe V3.96.0.0 | GoRC.exe V1.0.2.1
+Tested On: [ResourceHacker.exe](http://www.angusj.com/resourcehacker/#download) V4.2.5.146 | [upx.exe](https://github.com/upx/upx/releases/tag/v3.96) V3.96.0.0 | [GoRC.exe](http://www.godevtool.com/Gorc.zip) V1.0.2.1
 
 Extra
 -----
