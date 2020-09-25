@@ -8,15 +8,15 @@ No_UPX=1
 Created_Date=1
 [VERSION]
 Set_Version_Info=1
-Company_Name=denick, ladiko, flashkid, ruespe, darklight_tr and mercury233
+Company_Name=denick, ladiko, flashkid, ruespe, darklight_tr, mercury233, and LazyRam
 File_Description=AHK Compiler Wrapper
-File_Version=0.9.2.0
+File_Version=0.9.4.2
 Inc_File_Version=0
 Internal_Name=Compile_AHK.ahk
 Legal_Copyright=(c) 2006-2016 AutoHotkey
 Original_Filename=Compile_AHK.ahk
 Product_Name=Compile_AHK
-Product_Version=1.1.23.5
+Product_Version=1.1.33.2
 Set_AHK_Version=1
 [ICONS]
 Icon_1=%In_Dir%\icons\Compile_AHK_160.ico
@@ -961,7 +961,8 @@ Gui_CB_SAV:
 	If (Alt_Bin_Set = 1 and Alt_Bin != "")
 			FileGetVersion,s_OrgBin,%Alt_Bin%
 	Else
-			FileGetVersion,s_OrgBin,%Selected_Resources%
+			
+			FileGetVersion,s_OrgBin,%Resource_Files%
 		StringSplit , a_V , s_OrgBin , .
 		Loop , %a_V0%
 		{
@@ -2636,7 +2637,7 @@ Add_Resource(s_Resources)
 		}
 		SplitPath, A_LoopField , s_Resource_File , s_Resource_Dir , s_Resources_Ext , s_Resource_Version
 		
-		FileGetVersion,Resource_Version,%Selected_Resources%
+		FileGetVersion,Resource_Version,%Resource_Files%
 		s_Resource_Version = %Resource_Version%
 		
 		If s_Resources_Ext = BMP
