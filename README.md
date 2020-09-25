@@ -27,7 +27,7 @@ Known Issues
 ------------
 
 - Setting File Icon Does not work. sorry
-- Version in ListView wont show up in Resources Tab after first Compile. -Set Resource Version Checkbox Still Works
+- Known Bug - Always on Top icon
 - Icon files contained in very long directory paths will generate errors when they are selected.  This issue is under investigation.
 - This version of Compile AHK is intended for use with AutoHotkey_L v1.1.01.00 and higher.  For AutoHotkey Basic or AutoHotkey_L v1.1.00.01 and lower use Compile AHK v0.9.0.50/58.
 
