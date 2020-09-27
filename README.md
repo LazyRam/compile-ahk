@@ -24,7 +24,7 @@ I have very little AHK experience so my code was mostly brute force trial and er
 Known Issues
 ------------
 
-- Setting File Icon Fails to Compile. i really dont know how to fix, i tried to compile [ladiko](https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/) version but bug still happens.
+- Setting File Icon Fails the Compile. -i really dont know how to fix, i tried to compile [ladiko](https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/) version but bug still happens.
 - Icon files contained in very long directory paths will generate errors when they are selected.  This issue is under investigation.
 - This version of Compile AHK is intended for use with AutoHotkey_L v1.1.01.00 and higher.  For AutoHotkey Basic or AutoHotkey_L v1.1.00.01 and lower use Compile AHK v0.9.0.50/58.
 
