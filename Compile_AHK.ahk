@@ -945,9 +945,11 @@ Gui_CB_SAV:
 			Loop , %a_V0%
 				GuiControl , Enable , Gui_TPV%A_Index%
 	}
+; --------------------------------------------------------------------------------	
 	If (Gui_Set_Resource_Version) 
 	{
 	GuiControl , Disable , Gui_Inc_File_Version
+	GuiControl , , Gui_Inc_File_Version , 0
 	GuiControl , Disable , Gui_TFV1
 	GuiControl , Disable , Gui_TFV2
 	GuiControl , Disable , Gui_TFV3
@@ -956,13 +958,12 @@ Gui_CB_SAV:
 	GuiControl , Disable , Gui_FV2
 	GuiControl , Disable , Gui_FV3
 	GuiControl , Disable , Gui_FV4
-	GuiControl , , Gui_Inc_File_Version , 0
 	;split BIN_Version to four values
-	If (Alt_Bin_Set = 1 and Alt_Bin != "")
-			FileGetVersion,s_OrgBin,%Alt_Bin%
-	Else
-			
+	;If (Alt_Bin_Set = 1 and Alt_Bin != "")
+	If (Inc_File_Version = 1 Inc_File_Version != "")
 			FileGetVersion,s_OrgBin,%Resource_Files%
+	If (Inc_File_Version = 0)
+			FileGetVersion,s_OrgBin,%Selected_Resources%
 		StringSplit , a_V , s_OrgBin , .
 		Loop , %a_V0%
 		{
@@ -2637,7 +2638,7 @@ Add_Resource(s_Resources)
 		}
 		SplitPath, A_LoopField , s_Resource_File , s_Resource_Dir , s_Resources_Ext , s_Resource_Version
 		
-		FileGetVersion,Resource_Version,%Resource_Files%
+		FileGetVersion,Resource_Version,%A_LoopField%
 		s_Resource_Version = %Resource_Version%
 		
 		If s_Resources_Ext = BMP
