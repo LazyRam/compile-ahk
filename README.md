@@ -17,7 +17,7 @@ Tested On: [ResourceHacker.exe](http://www.angusj.com/resourcehacker/#download) 
 
 Extra
 -----
-I Updated Compile-ahk.exe to automate ketain File Downloads/Updates for Enabling the cmd command Compile_AHK.exe /auto "file path" to use the updated file version.
+I Updated Compile-ahk.exe for [ketarin's](https://www.ketarin.org) automatic file downloads/updates to run a .bat Command automatically after update/Download that will auto Compile the ahk script using this .bat Command "Compile_AHK.exe" /auto "file path" for AHK Runwait, to remove install overlapping or more custom silent installs. All so I can more easily integrate loads of programs/software/toos in [NTLite](https://www.ntlite.com) Windows 10 custom iso buider.
 
 I have very little AHK experience so my code was mostly brute force trial and error for 5 days. I tried staying as true to the code as possible.
 
