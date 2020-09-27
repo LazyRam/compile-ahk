@@ -1,8 +1,6 @@
 Compile AHK
 ===========
 
-v0.9.4.2
-
 Authors: [denick](https://autohotkey.com/board/topic/13154-compile-ahk-for-those-who-compile/), [ladiko](https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/), flashkid, ruespe, darklight_tr,[imaginationac](https://github.com/imaginationac/compile-ahk), [mercury233](https://github.com/mercury233), [LazyRam](https://github.com/LazyRam)
 
 
@@ -19,15 +17,14 @@ Tested On: [ResourceHacker.exe](http://www.angusj.com/resourcehacker/#download) 
 
 Extra
 -----
-I Updated Compile-ahk.exe to automate ketain File Updates for Enabling the cmd command Compile_AHK.exe /auto "file path" to use the updated file version.
+I Updated Compile-ahk.exe to automate ketain File Downloads/Updates for Enabling the cmd command Compile_AHK.exe /auto "file path" to use the updated file version.
 
-I have very little AHK experience so my code was mostly brute force trial and error for 3 days. I tried staying as true to the code as possible. In the end Code is NOT Optimal
+I have very little AHK experience so my code was mostly brute force trial and error for 5 days. I tried staying as true to the code as possible.
 
 Known Issues
 ------------
 
-- Setting File Icon Does not work. sorry
-- Always on Top icon
+- Setting File Icon Fails to Compile. i really dont know how to fix, i tried to compile [ladiko](https://autohotkey.com/board/topic/21189-compile-ahk-ii-for-those-who-compile/) version but bug still happens.
 - Icon files contained in very long directory paths will generate errors when they are selected.  This issue is under investigation.
 - This version of Compile AHK is intended for use with AutoHotkey_L v1.1.01.00 and higher.  For AutoHotkey Basic or AutoHotkey_L v1.1.00.01 and lower use Compile AHK v0.9.0.50/58.
 
@@ -38,6 +35,15 @@ Originally declared just "open source", any new contributions will be considered
 
 Changelog
 ----------
+### v0.9.4.3 (09/26/20)
+
+####  Compile AHK Changes
+- Fixed "Set Resource Version" Checkbox to will now change to updated file after every compile
+- Fixed "Always on Top" icon now Properly Showing again
+- Updated addition is In now in all provided languages - English, Chinese, German -Google Translate
+- Updated file version Text
+- Updated Credits Enhanced by Text
+
 ### v0.9.4.2 (09/24/20)
 
 ####  Compile AHK Changes:
