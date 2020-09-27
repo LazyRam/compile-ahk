@@ -10,7 +10,7 @@ Created_Date=1
 Set_Version_Info=1
 Company_Name=denick, ladiko, flashkid, ruespe, darklight_tr, mercury233, and LazyRam
 File_Description=AHK Compiler Wrapper
-File_Version=0.9.4.2
+File_Version=0.9.4.3
 Inc_File_Version=0
 Internal_Name=Compile_AHK.ahk
 Legal_Copyright=(c) 2006-2016 AutoHotkey
@@ -28,7 +28,7 @@ Icon_5=0
 * * * Compile_AHK SETTINGS END * * *
 */
 
-CAHK_Version=0.9.2.0
+CAHK_Version=0.9.4.3
 
 ; --------------------------------------------------------------------------------
 ; Language				: English // German // Simplified Chinese
@@ -960,10 +960,15 @@ Gui_CB_SAV:
 	GuiControl , Disable , Gui_FV4
 	;split BIN_Version to four values
 	;If (Alt_Bin_Set = 1 and Alt_Bin != "")
-	If (Inc_File_Version = 1 Inc_File_Version != "")
-			FileGetVersion,s_OrgBin,%Resource_Files%
-	If (Inc_File_Version = 0)
+	msgbox, |1 %Resource_Files% |2 %Selected_Resources% |
+	If (Resource_Files = "") {
 			FileGetVersion,s_OrgBin,%Selected_Resources%
+			msgbox, 1
+	}
+	If (Selected_Resources = "") {
+			FileGetVersion,s_OrgBin,%Resource_Files%
+			msgbox, 2
+	}
 		StringSplit , a_V , s_OrgBin , .
 		Loop , %a_V0%
 		{
@@ -1201,7 +1206,7 @@ ShowCredits:
 	Gui 2:Add, Text, vURL_2 gOpenLink x48, Developed by denick
 	
 	Gui 2:Add, Picture, vIcon3 x12 y%YPos3% h32 w32 Icon1, %A_ScriptFullPath%
-	Gui 2:Add, Text, vURL_3 gOpenLink x48, Enhanced by ladiko, flashkid,`nruespe, darklight_tr and mercury233
+	Gui 2:Add, Text, vURL_3 gOpenLink x48, Enhanced by ladiko, flashkid,`nruespe, darklight_tr, mercury233, and LazyRam
 	
 	Gui 2:Add, Picture, vIcon4 x12 y%YPos4% h32 w32 Icon172, shell32.dll
 	Gui 2:Add, Text, vURL_4 gOpenLink x48, Debugged by jfk001 + flashkid
